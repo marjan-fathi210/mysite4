@@ -15,3 +15,6 @@ class Post(models.Model):
     updated_date= models.DateTimeField(auto_now= True)
     
     # SELECT * FROM Post where status= 1
+    def __str__(self):
+        return "{}-{}".format(self.title, self.id)
+        
