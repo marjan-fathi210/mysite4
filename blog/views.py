@@ -9,11 +9,16 @@ def blog_view(request):
     return render(request,'blog/blog-home.html', context)
 
 def blog_single(request, pid):
-    posts= Post.objects.filter(status=1)
+    posts= Post.objects.filter(status=1).order_by('published_date')
     post= get_object_or_404(posts, pk= pid)
     post.counted_views+=1
     post.save()
-    context={'post': post}
+    
+    post_list= list(posts)
+    current_index= post_list.index(post)
+    prev_post= post_list[current_index-1] if current_index> 0 else None
+    next_post= post_list[current_index+1] if current_index< len(post_list) -1 else None
+    context={'post': post, 'prev_post': prev_post, 'next_post':next_post}
     return render(request,'blog/blog-single.html',context)
 
 def test_view(request, pid):
