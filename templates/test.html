@@ -8,8 +8,9 @@
 </head>
 <body>
    <h1>Testing page</h1>
-   <p>test: {% totalposts %}</p>
    
+   <p>test: {% totalposts %}</p>
+
    <p>{% posts as total %}</p>
    {% for post in total %}
    <p>{{post.content|snippet:50}}</p>
