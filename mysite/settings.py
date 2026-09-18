@@ -38,10 +38,19 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
+    'robots',
     'django_extensions',
+    'debug_toolbar',
     'website',
     'blog'
 ]
+#sits framework
+SITE_ID=2
+#robots
+ROBOTS_USE_HOST = True
+ROBOTS_USE_SITEMAP = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -51,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+     "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -125,5 +135,8 @@ MEDIA_ROOT=BASE_DIR/'media'
 
 STATICFILES_DIRS = [
     BASE_DIR / "statics",
+]
+INTERNAL_IPS = [
+    "127.0.0.1",
 ]
 
