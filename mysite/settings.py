@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'robots',
     'django_extensions',
     'debug_toolbar',
+    'taggit',
     'website',
     'blog'
 ]
