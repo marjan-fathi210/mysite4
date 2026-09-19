@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'debug_toolbar',
     'taggit',
+    'django_summernote',
     'website',
     'blog'
 ]
@@ -52,6 +53,8 @@ SITE_ID=2
 #robots
 ROBOTS_USE_HOST = True
 ROBOTS_USE_SITEMAP = True
+#summernote
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -140,4 +143,6 @@ STATICFILES_DIRS = [
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+X_FRAME_OPTIONS = "SAMEORIGIN"
 
