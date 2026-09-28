@@ -1,10 +1,12 @@
 from django.shortcuts import render, get_object_or_404
-from blog.models import Post
+from blog.models import Post, Comment
 from blog.models import Category
 from django.utils import timezone
 from django.http import HttpResponse, JsonResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from taggit.models import Tag
+from django.contrib import messages
+from blog.forms import CommentForm
 
 # Create your views here.
 def blog_view(request, **kwargs):
@@ -31,17 +33,28 @@ def blog_view(request, **kwargs):
     return render(request,'blog/blog-home.html', context)
 
 def blog_single(request, pid):
+    if request.method=='POST':
+        form= CommentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request,messages.SUCCESS,'your comment submited successfully')
+        else:
+            messages.add_message(request,messages.ERROR,'your comment did not submited')
     posts= Post.objects.filter(status=1).order_by('published_date')
     post= get_object_or_404(posts, pk= pid)
     post.counted_views+=1
     post.save()
-    
+    comments= Comment.objects.filter(post=post.id,approved=True)
+            
     post_list= list(posts)
     current_index= post_list.index(post)
     prev_post= post_list[current_index-1] if current_index> 0 else None
     next_post= post_list[current_index+1] if current_index< len(post_list) -1 else None
-    context={'post': post, 'prev_post': prev_post, 'next_post':next_post}
+    form=CommentForm()
+    context={'post': post, 'prev_post': prev_post, 'next_post':next_post, 'comments': comments, 'form':form}
     return render(request,'blog/blog-single.html',context)
+
+            
 
 def blog_category(request,cat_name):
     posts= Post.objects.filter(status=1)
