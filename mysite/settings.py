@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'django_summernote',
     'captcha',
     'website',
-    'blog'
+    'blog',
+    'accounts',
 ]
 #sits framework
 SITE_ID=2
